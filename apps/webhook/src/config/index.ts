@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv';
-import * as envalid from 'envalid';
-import { str, port } from 'envalid';
+import { cleanEnv, str, port } from 'envalid';
 
 dotenv.config();
 
@@ -30,7 +29,7 @@ const { error } = dotenv.config({ path });
 
 if (error && !process.env.LAMBDA_TASK_ROOT) throw error;
 
-envalid.cleanEnv(process.env, {
+cleanEnv(process.env, {
   NODE_ENV: str({
     choices: ['dev', 'test', 'production', 'ci', 'local'],
     default: 'local',
